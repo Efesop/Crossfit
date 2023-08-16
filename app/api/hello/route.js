@@ -17,18 +17,24 @@ export default async function handler(req, res) {
 
   // Call the OpenAI API
   const response = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${OPENAI_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      prompt: prompt,
-      max_tokens: 150,
-    }),
-  });
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${OPENAI_API_KEY}`,
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    prompt: prompt,
+    max_tokens: 150,
+  }),
+});
 
-  const data = await response.json();
+if (!response.ok) {
+  const errorData = await response.json();
+  console.error("OpenAI API Error:", errorData);
+  throw new Error("OpenAI API request failed");
+}
+
+const data = await response.json();
 
   // Extract the generated workout from the OpenAI response
   const workout = data.choices?.[0]?.text?.trim();
