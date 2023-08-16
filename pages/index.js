@@ -8,13 +8,27 @@ export default function Home() {
   const [currentWorkout, setCurrentWorkout] = useState(null);
 
   const handleExerciseToggle = (exercise) => {
-    // Logic to add/remove exercises from the list
+    if (exercises.includes(exercise)) {
+      setExercises(prevExercises => prevExercises.filter(e => e !== exercise));
+    } else {
+      setExercises(prevExercises => [...prevExercises, exercise]);
+    }
   };
 
   const generateWorkout = async () => {
-    // Logic to call the API endpoint and get the generated workout
-    // For demonstration purposes, let's assume the workout data is in a variable named `data`
-    // setCurrentWorkout(data);
+    const response = await fetch('/api/hello', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        exercises: exercises,
+        // Add other parameters like days, intensity, etc.
+      })
+    });
+
+    const data = await response.json();
+    setCurrentWorkout(data.workout);
   };
 
   return (
