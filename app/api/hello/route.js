@@ -1,27 +1,37 @@
-import fetch from 'node-fetch';
+import { NextApiRequest, NextApiResponse } from 'next';
+import { OPENAI_API_KEY } from '../../../config';
 
-export async function POST(request) {
-  const requestBody = await request.json();
-  const { exercises, days, intensity, progressive } = requestBody;
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).end();
+  }
 
-  const promptText = `Generate a ${intensity} intensity CrossFit workout for ${days} days using ${exercises.join(', ')}.`;
+  const { exercises, days, intensity, progressive } = req.body;
 
-  const response = await fetch("https://api.openai.com/v1/engines/davinci/completions", {
-    method: "POST",
+  // Construct the prompt for OpenAI based on the parameters
+  let prompt = `Generate a CrossFit workout plan for ${days} days a week with ${intensity} intensity using the following exercises: ${exercises.join(', ')}.`;
+
+  if (progressive) {
+    prompt += ' The workouts should progressively get harder over time.';
+  }
+
+  // Call the OpenAI API
+  const response = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`
+      'Authorization': `Bearer ${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}`,
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      prompt: promptText,
-      max_tokens: 150
-    })
+      prompt: prompt,
+      max_tokens: 150,
+    }),
   });
 
   const data = await response.json();
 
-  return new Response(JSON.stringify({ workout: data.choices[0].text.trim() }), {
-    status: 200,
-    headers: { "Content-Type": "application/json" },
-  });
+  // Extract the generated workout from the OpenAI response
+  const workout = data.choices?.[0]?.text?.trim();
+
+  res.json({ workout });
 }
