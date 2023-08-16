@@ -14,18 +14,20 @@ export default async function handler(req, res) {
 
   const { exercises, days, intensity, progressive } = req.body;
 
-  // Construct the prompt for OpenAI based on the parameters
-  let prompt = `Generate a CrossFit workout plan for ${days} days a week with ${intensity} intensity using the following exercises: ${exercises.join(', ')}.`;
+  // Construct the message for OpenAI based on the parameters
+  let content = `Generate a CrossFit workout plan for ${days} days a week with ${intensity} intensity using the following exercises: ${exercises.join(', ')}.`;
 
   if (progressive) {
-    prompt += ' The workouts should progressively get harder over time.';
+    content += ' The workouts should progressively get harder over time.';
   }
 
   // Call the OpenAI API using the SDK
-  const response = await openai.createCompletion({
-    engine: "davinci",
-    prompt: prompt,
-    max_tokens: 150
+  const response = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [{
+      role: "user",
+      content: content
+    }]
   });
 
   // Extract the generated workout from the OpenAI response
