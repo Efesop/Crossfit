@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { OPENAI_API_KEY } from '../../../config';
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
