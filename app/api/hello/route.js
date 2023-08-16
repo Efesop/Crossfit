@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import { Configuration, OpenAIApi } from "openai";
 
 const configuration = new Configuration({
@@ -7,7 +9,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export default async function handler(req, res) {
+export async function POST(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).end();
   }
