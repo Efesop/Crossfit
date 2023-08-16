@@ -1,5 +1,11 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+import { Configuration, OpenAIApi } from "openai";
+
+const configuration = new Configuration({
+    organization: "org-3DMIQgm7KgujKSu6MpZLrZ8j",
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -15,29 +21,15 @@ export default async function handler(req, res) {
     prompt += ' The workouts should progressively get harder over time.';
   }
 
-  // Call the OpenAI API
-  const response = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${OPENAI_API_KEY}`,
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
+  // Call the OpenAI API using the SDK
+  const response = await openai.createCompletion({
+    engine: "davinci",
     prompt: prompt,
-    max_tokens: 150,
-  }),
-});
-
-if (!response.ok) {
-  const errorData = await response.json();
-  console.error("OpenAI API Error:", errorData);
-  throw new Error("OpenAI API request failed");
-}
-
-const data = await response.json();
+    max_tokens: 150
+  });
 
   // Extract the generated workout from the OpenAI response
-  const workout = data.choices?.[0]?.text?.trim();
+  const workout = response.data.choices?.[0]?.message?.content?.trim();
 
   res.json({ workout });
 }
