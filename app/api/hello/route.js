@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   const response = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${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}`,
+      'Authorization': `Bearer ${OPENAI_API_KEY}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
