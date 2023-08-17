@@ -1,11 +1,12 @@
 export default async function handler(req, res) {
     const designData = req.body;
-    const result = await submitDesignToBackend(designData);
+    const userId = req.user.sub; // Get user's ID
+    const result = await submitDesignToBackend(designData, userId);
     res.status(200).json(result);
 }
 
-async function submitDesignToBackend(data) {
-    const response = await fetch(`${process.env.BACKEND_URL}/designs`, {
+async function submitDesignToBackend(data, userId) {
+    const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/designs`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
