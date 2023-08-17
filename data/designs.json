@@ -1,0 +1,15 @@
+[
+    {
+      "id": "1",
+      "title": "Design 1",
+      "description": "Description for Design 1",
+      "imageUrl": "URL_for_image_1"
+    },
+    {
+      "id": "2",
+      "title": "Design 2",
+      "description": "Description for Design 2",
+      "imageUrl": "URL_for_image_2"
+    }
+  ]
+  

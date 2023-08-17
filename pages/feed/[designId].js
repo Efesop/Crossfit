@@ -1,24 +1,20 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import DesignDetail from '../../app/components/DesignDetail';
 
-export default function Design() {
+export default function DesignDetail() {
   const router = useRouter();
   const { designId } = router.query;
   const [design, setDesign] = useState(null);
 
   useEffect(() => {
+    async function fetchDesign() {
+      const response = await fetch(`/api/design?id=${designId}`);
+      const data = await response.json();
+      setDesign(data);
+    }
     if (designId) {
-      async function fetchDesign() {
-        const response = await fetch(`/api/designs/${designId}`);
-        const data = await response.json();
-        setDesign(data);
-      }
       fetchDesign();
     }
   }, [designId]);
 
-  if (!design) return <p>Loading...</p>;
-
-  return <DesignDetail design={design} />;
+  // Render your design details here using the `design` state
 }

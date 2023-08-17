@@ -1,18 +1,11 @@
-import { db } from '../../firebase';
+import designs from '../../data/designs.json';
 
-export default async (req, res) => {
-  if (req.method === 'GET') {
-    try {
-      const designsSnapshot = await db.collection('designs').get();
-      const designs = [];
-      designsSnapshot.forEach(doc => {
-        designs.push({ id: doc.id, ...doc.data() });
-      });
-      res.status(200).json(designs);
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to fetch designs.' });
-    }
+export default (req, res) => {
+  const { id } = req.query;
+  const design = designs.find((design) => design.id === id);
+  if (design) {
+    res.status(200).json(design);
   } else {
-    res.status(405).json({ error: 'Method not allowed.' });
+    res.status(404).json({ message: 'Design not found' });
   }
 };

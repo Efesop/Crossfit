@@ -1,24 +1,19 @@
-import { db } from '../../firebase';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async (req, res) => {
-  if (req.method === 'POST') {
-    const { title, description, imageUrl, tags, url } = req.body;
-    try {
-      await db.collection('designs').add({
-        title,
-        description,
-        imageUrl,
-        tags,
-        url,
-        likes: 0,
-        comments: [],
-        timestamp: new Date().toISOString(),
-      });
-      res.status(200).json({ message: 'Design submitted successfully.' });
-    } catch (error) {
-      res.status(500).json({ error: 'Failed to submit design.' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed.' });
-  }
-};
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  const designData = req.body;
+  const result = await submitDesignToBackend(designData);
+  res.status(200).json(result);
+}
+
+async function submitDesignToBackend(data) {
+  const response = await fetch('YOUR_BACKEND_URL/designs', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+  const result = await response.json();
+  return result;
+}
