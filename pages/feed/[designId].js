@@ -1,4 +1,3 @@
-// pages/feed/[designId].js
 import DesignDetail from '../../components/DesignDetail';
 
 export default function DesignPage({ design }) {

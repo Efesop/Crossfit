@@ -1,4 +1,3 @@
-// pages/index.js
 import DesignCard from '../components/DesignCard';
 
 export default function Feed({ designs }) {

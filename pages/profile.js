@@ -1,4 +1,3 @@
-// pages/profile.js
 import Profile from '../components/Profile';
 
 export default function ProfilePage() {
