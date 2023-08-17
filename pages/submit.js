@@ -19,6 +19,6 @@ export default function SubmitDesign() {
         // Handle error
       }
     };
-  
+
     // Your form fields and submission logic here
-  }
+}

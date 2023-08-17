@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     const result = await submitDesignToBackend(designData);
     res.status(200).json(result);
 }
-  
+
 async function submitDesignToBackend(data) {
     const response = await fetch(`${process.env.BACKEND_URL}/designs`, {
         method: 'POST',

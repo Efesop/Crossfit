@@ -1,26 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useUser } from '@auth0/nextjs-auth0';
 
 export default function Profile() {
-    const [designs, setDesigns] = useState([]);
+    const { user, isLoading } = useUser();
 
-    useEffect(() => {
-      async function fetchData() {
-        const data = await fetchDesignsByUserFromBackend();
-        setDesigns(data);
-      }
-      fetchData();
-    }, []);
-  
+    if (isLoading) return <div>Loading...</div>;
+    if (user) {
+      console.log(user.sub); // This is the user's ID
+    }
+
     return (
       <div>
         {/* Render user's designs here */}
       </div>
     );
-}
-
-async function fetchDesignsByUserFromBackend() {
-    const userId = process.env.USER_ID;
-    const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/designs`);
-    const data = await response.json();
-    return data;
 }
