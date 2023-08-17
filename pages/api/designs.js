@@ -1,20 +1,18 @@
-let designs = [
-    {
-      id: 1,
-      title: 'Design 1',
-      description: 'This is a sample design description.',
-      imageUrl: '/path/to/image1.jpg',
-      tags: ['web', 'mobile'],
-      likes: 10,
-      comments: [],
-    },
-    // ... more designs
-  ];
-  
-  export default (req, res) => {
-    if (req.method === 'GET') {
+import { db } from '../../firebase';
+
+export default async (req, res) => {
+  if (req.method === 'GET') {
+    try {
+      const designsSnapshot = await db.collection('designs').get();
+      const designs = [];
+      designsSnapshot.forEach(doc => {
+        designs.push({ id: doc.id, ...doc.data() });
+      });
       res.status(200).json(designs);
-    } else {
-      res.status(405).json({ message: 'Method not allowed.' });
+    } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch designs.' });
     }
-  };
+  } else {
+    res.status(405).json({ error: 'Method not allowed.' });
+  }
+};
