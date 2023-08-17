@@ -16,11 +16,11 @@ export default function Profile() {
         {/* Render user's designs here */}
       </div>
     );
-  }
-  
-  async function fetchDesignsByUserFromBackend() {
-    const userId = 'YOUR_USER_ID';
-    const response = await fetch(`YOUR_BACKEND_URL/users/${userId}/designs`);
+}
+
+async function fetchDesignsByUserFromBackend() {
+    const userId = process.env.USER_ID;
+    const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/designs`);
     const data = await response.json();
     return data;
-  }
+}
