@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
 import DesignCard from '../app/components/DesignCard';
 
 export default function Profile() {
