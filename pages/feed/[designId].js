@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import DesignDetail from '../../components/DesignDetail';
+import DesignDetail from '../../app/components/DesignDetail';
 
 export default function Design() {
   const router = useRouter();

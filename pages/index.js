@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import DesignCard from '../components/DesignCard';
+import DesignCard from '../app/components/DesignCard';
 
 export default function Feed() {
   const [designs, setDesigns] = useState([]);

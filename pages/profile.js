@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import DesignCard from '../components/DesignCard';
+import DesignCard from '../app/components/DesignCard';
 
 export default function Profile() {
   const [userDesigns, setUserDesigns] = useState([]);
