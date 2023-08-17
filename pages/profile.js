@@ -1,5 +1,15 @@
+import { useState, useEffect } from 'react';
+
 export default function Profile() {
-    const designs = fetchDesignsByUserFromBackend();
+    const [designs, setDesigns] = useState([]);
+
+    useEffect(() => {
+      async function fetchData() {
+        const data = await fetchDesignsByUserFromBackend();
+        setDesigns(data);
+      }
+      fetchData();
+    }, []);
   
     return (
       <div>
@@ -9,10 +19,8 @@ export default function Profile() {
   }
   
   async function fetchDesignsByUserFromBackend() {
-    // Replace 'YOUR_USER_ID' and 'YOUR_BACKEND_URL' with actual values
     const userId = 'YOUR_USER_ID';
     const response = await fetch(`YOUR_BACKEND_URL/users/${userId}/designs`);
     const data = await response.json();
     return data;
   }
-  

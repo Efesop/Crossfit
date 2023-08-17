@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { useState, useEffect } from 'react';
 
 export default function DesignDetail() {
   const router = useRouter();
@@ -7,7 +8,6 @@ export default function DesignDetail() {
 
   useEffect(() => {
     async function fetchDesign() {
-      // Replace the following logic with a call to your new backend or database
       const response = await fetch(`/api/design?id=${designId}`);
       const data = await response.json();
       setDesign(data);
