@@ -1,9 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DesignCard from '../app/components/DesignCard';
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
 
-export default function Feed({ designs }) {
+export default function Feed() {
+  const [designs, setDesigns] = useState([]);
   const [filter, setFilter] = useState('popular'); // default filter
   const [tags, setTags] = useState([]); // selected tags
+
+  useEffect(() => {
+    const fetchDesigns = async () => {
+      const db = getFirestore();
+      const designCollection = collection(db, 'designs');
+      const designSnapshot = await getDocs(designCollection);
+      const designList = designSnapshot.docs.map(doc => doc.data());
+      setDesigns(designList);
+    };
+
+    fetchDesigns();
+  }, []);
 
   const filteredDesigns = designs.filter(design => {
     if (tags.length > 0 && !tags.some(tag => design.tags.includes(tag))) {
@@ -26,14 +40,4 @@ export default function Feed({ designs }) {
       </div>
     </div>
   );
-}
-
-// Fetch designs from your database or API
-export async function getStaticProps() {
-  const designs = []; // Fetch designs here
-  return {
-    props: {
-      designs
-    }
-  };
 }
