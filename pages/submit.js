@@ -1,10 +1,15 @@
-import SubmitForm from '../components/SubmitForm';
-
-export default function SubmitPage() {
-  return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-3xl mb-4">Submit Your Design</h1>
-      <SubmitForm />
-    </div>
-  );
-}
+export default function SubmitForm() {
+    return (
+      <form className="border rounded-lg p-4">
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+          <input type="text" className="border rounded-lg w-full p-2" />
+        </div>
+        {/* Repeat similar blocks for description, images, tags, URL, etc. */}
+        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-300">
+          Submit
+        </button>
+      </form>
+    );
+  }
+  
