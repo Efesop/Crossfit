@@ -7,5 +7,4 @@ export default function Profile({ user }) {
         {/* Add more user details as needed */}
       </div>
     );
-  }
-  
+}

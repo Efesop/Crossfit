@@ -18,5 +18,4 @@ export default function DesignCard({ design }) {
         </div>
       </div>
     );
-  }
-  
+}

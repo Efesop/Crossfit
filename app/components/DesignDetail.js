@@ -15,5 +15,4 @@ export default function DesignDetail({ design }) {
         {/* Add comments section here */}
       </div>
     );
-  }
-  
+}

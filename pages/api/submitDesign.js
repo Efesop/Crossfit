@@ -1,5 +1,3 @@
-// pages/api/submitDesign.js
-
 export default (req, res) => {
     if (req.method === 'POST') {
       const design = req.body;
@@ -9,5 +7,4 @@ export default (req, res) => {
     } else {
       res.status(405).json({ message: 'Method not allowed.' });
     }
-  };
-  
+};

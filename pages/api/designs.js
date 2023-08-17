@@ -1,5 +1,3 @@
-// pages/api/designs.js
-
 let designs = [
     {
       id: 1,
@@ -20,4 +18,3 @@ let designs = [
       res.status(405).json({ message: 'Method not allowed.' });
     }
   };
-  

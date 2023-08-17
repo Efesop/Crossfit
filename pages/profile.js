@@ -5,5 +5,4 @@ export default function ProfilePage() {
         {/* Display user details, designs submitted, likes, etc. */}
       </div>
     );
-  }
-  
+}
