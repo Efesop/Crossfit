@@ -9,7 +9,8 @@ export default function Profile() {
   }
   
   async function fetchDesignsByUserFromBackend() {
-    const userId = 'YOUR_USER_ID'; // Replace with logic to get the current user's ID
+    // Replace 'YOUR_USER_ID' and 'YOUR_BACKEND_URL' with actual values
+    const userId = 'YOUR_USER_ID';
     const response = await fetch(`YOUR_BACKEND_URL/users/${userId}/designs`);
     const data = await response.json();
     return data;

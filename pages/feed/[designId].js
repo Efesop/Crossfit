@@ -7,6 +7,7 @@ export default function DesignDetail() {
 
   useEffect(() => {
     async function fetchDesign() {
+      // Replace the following logic with a call to your new backend or database
       const response = await fetch(`/api/design?id=${designId}`);
       const data = await response.json();
       setDesign(data);

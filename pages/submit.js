@@ -4,6 +4,7 @@ export default function SubmitDesign() {
       const designData = {
         // Your form data here
       };
+      // Replace the following logic with a call to your new backend or database
       const response = await fetch('/api/designs', {
         method: 'POST',
         headers: {

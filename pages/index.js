@@ -3,6 +3,7 @@ export default function Home() {
   
     useEffect(() => {
       async function fetchDesigns() {
+        // Replace the following logic with a call to your new backend or database
         const response = await fetch('/api/designs');
         const data = await response.json();
         setDesigns(data);
