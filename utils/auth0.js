@@ -1,14 +1,14 @@
 import { initAuth0 } from '@auth0/nextjs-auth0';
 
 export default initAuth0({
-  domain: 'dev-to536ufgipngcm31.us.auth0.com',
-  clientId: '1ihqi1KdvUMwUXFtVvia5NBYdIyED5cu',
-  clientSecret: 'UAMoiKsdfYT9KS7uTsI8VuAiCMo0ChT1vHKKXmDPG2fIDROTpcSGa-FmdR-Hkx8x',
+  domain: process.env.AUTH0_DOMAIN,
+  clientId: process.env.AUTH0_CLIENT_ID,
+  clientSecret: process.env.AUTH0_CLIENT_SECRET,
   scope: 'openid profile',
-  redirectUri: 'https://crossfit-efesop.vercel.app',
-  postLogoutRedirectUri: 'https://crossfit-efesop.vercel.app',
+  redirectUri: process.env.AUTH0_REDIRECT_URI,
+  postLogoutRedirectUri: process.env.AUTH0_POST_LOGOUT_REDIRECT_URI,
   session: {
-    cookieSecret: 'A_LONG_RANDOM_STRING',
+    cookieSecret: process.env.AUTH0_COOKIE_SECRET,
     storeAccessToken: true
   }
 });
