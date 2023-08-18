@@ -1,12 +1,20 @@
-import { useUser } from '@auth0/nextjs-auth0';
-import Sidebar from '../../components/Sidebar';
+// ... other imports
+import DesignCard from '../../components/DesignCard';
 
 export default function Feed() {
     const { user, isLoading } = useUser();
 
     // Sample data for designs
     const designs = [
-        // ... add 6 sample designs
+        {
+            id: 1,
+            title: 'Design 1',
+            description: 'This is a sample description for Design 1',
+            imageUrl: '/path/to/image1.jpg',
+            tags: ['tag1', 'tag2'],
+            likes: 10
+        },
+        // ... add 5 more sample designs similarly
     ];
 
     return (
@@ -31,7 +39,7 @@ export default function Feed() {
                 {/* Feed */}
                 <div>
                     {designs.map(design => (
-                        // Render each design. You can create a Design component for this.
+                        <DesignCard key={design.id} design={design} />
                     ))}
                 </div>
             </main>
