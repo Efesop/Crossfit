@@ -19,3 +19,4 @@ export default function DesignDetail() {
 
   // Render your design details here using the `design` state
 }
+
