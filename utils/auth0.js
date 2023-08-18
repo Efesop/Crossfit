@@ -13,4 +13,5 @@ export default initAuth0({
       storeAccessToken: process.env.AUTH0_STORE_ACCESS_TOKEN || false
     }
   });
+
   
