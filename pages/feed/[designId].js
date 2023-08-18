@@ -10,12 +10,12 @@ export default function Feed() {
     ];
 
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 flex">
             {/* Sidebar Navigation */}
             <Sidebar />
 
             {/* Main Content */}
-            <main className="w-3/4 float-right">
+            <main className="w-3/4 ml-4">
                 {/* Search Bar */}
                 <div className="mb-4">
                     <input type="text" placeholder="Search designs..." className="w-full p-2 border rounded" />
