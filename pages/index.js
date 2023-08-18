@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import auth0 from '../utils/auth0';
 
 export default function Home() {
-    const [designs, setDesigns] = useState([]);
+    const { user, error, isLoading } = useUser();
 
-    useEffect(() => {
-      async function fetchDesigns() {
-        const response = await fetch('/api/designs');
-        const data = await response.json(); 
-        setDesigns(data);
-      }
-      fetchDesigns();
-    }, []);
+    if (isLoading) return <div>Loading...</div>;
+    if (error) return <div>{error.message}</div>;
 
-    return (
-      <div>
-        {/* Render your designs here using the `designs` state */}
-        <button onClick={() => auth0.signIn()}>Login</button>
-      </div>
-    );
+    if (user) {
+        return (
+            <div>
+                Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
+            </div>
+        );
+    }
+
+    return <a href="/api/auth/login">Login</a>;
 }
