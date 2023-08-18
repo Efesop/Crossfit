@@ -1,5 +1,5 @@
 // pages/api/designs.js
-import { supabase } from '../../utils/supabaseClient';
+import { supabase } from '../../lib/supabaseClient';
 
 export default async (req, res) => {
   const { data, error } = await supabase.from('designs').select('*');

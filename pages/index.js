@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import DesignCard from '../components/DesignCard';
-import Sidebar from '../components/Sidebar';
+import DesignCard from '../app/components/DesignCard';
+import Sidebar from '../app/components/sidebar';
 
 export default function Feed() {
     const [designs, setDesigns] = useState([]);

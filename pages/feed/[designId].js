@@ -1,4 +1,4 @@
-import DesignCard from '../../components/DesignCard';
+import DesignCard from '../../app/components/DesignCard';
 
 export default function Feed({ designs }) {
   return (
