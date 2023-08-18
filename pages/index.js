@@ -1,18 +1,39 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useUser } from '@auth0/nextjs-auth0';
+import Sidebar from '../../components/Sidebar';
+import DesignCard from '../../components/DesignCard';
 
-export default function Home() {
-    const { user, error, isLoading } = useUser();
+export default function Feed() {
+    const { user, isLoading } = useUser();
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>{error.message}</div>;
+    // Fetch real data from your database
+    const designs = []; // This should be replaced with a fetch call to your database
 
-    if (user) {
-        return (
-            <div>
-                Welcome {user.name}! <a href="/api/auth/logout">Logout</a>
-            </div>
-        );
-    }
+    return (
+        <div className="container mx-auto p-4">
+            {/* Sidebar Navigation */}
+            <Sidebar />
 
-    return <a href="/api/auth/login">Login</a>;
+            {/* Main Content */}
+            <main className="w-3/4 float-right">
+                {/* Search Bar */}
+                <div className="mb-4">
+                    <input type="text" placeholder="Search designs..." className="w-full p-2 border rounded" />
+                </div>
+
+                {/* Tags */}
+                <div className="mb-4">
+                    <button className="px-3 py-1 bg-blue-500 text-white rounded mr-2">Tag 1</button>
+                    <button className="px-3 py-1 bg-blue-500 text-white rounded mr-2">Tag 2</button>
+                    {/* ... add more tags */}
+                </div>
+
+                {/* Feed */}
+                <div>
+                    {designs.map(design => (
+                        <DesignCard key={design.id} design={design} />
+                    ))}
+                </div>
+            </main>
+        </div>
+    );
 }
