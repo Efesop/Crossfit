@@ -1,11 +1,9 @@
-import designs from '../../data/designs.json';
+// pages/api/designs.js
+import { supabase } from '../../utils/supabaseClient';
 
-export default (req, res) => {
-  const { id } = req.query;
-  const design = designs.find((design) => design.id === id);
-  if (design) {
-    res.status(200).json(design);
-  } else {
-    res.status(404).json({ message: 'Design not found' });
-  }
+export default async (req, res) => {
+  const { data, error } = await supabase.from('designs').select('*');
+
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
 };

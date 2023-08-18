@@ -1,18 +1,10 @@
-export default async function handler(req, res) {
-    const designData = req.body;
-    const userId = req.user.sub; // Get user's ID
-    const result = await submitDesignToBackend(designData, userId);
-    res.status(200).json(result);
-}
+// pages/api/submitDesign.js
+import { supabase } from '../../utils/supabaseClient';
 
-async function submitDesignToBackend(data, userId) {
-    const response = await fetch(`${process.env.BACKEND_URL}/users/${userId}/designs`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    return result;
-}
+export default async (req, res) => {
+  const { title, description, imageUrl, tags } = req.body;
+  const { data, error } = await supabase.from('designs').insert([{ title, description, imageUrl, tags }]);
+
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+};

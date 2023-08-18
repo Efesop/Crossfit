@@ -1,12 +1,20 @@
-import { useUser } from '@auth0/nextjs-auth0';
-import Sidebar from '../../components/Sidebar';
-import DesignCard from '../../components/DesignCard';
+import { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
+import DesignCard from '../components/DesignCard';
+import Sidebar from '../components/Sidebar';
 
 export default function Feed() {
-    const { user, isLoading } = useUser();
+    const [designs, setDesigns] = useState([]);
 
-    // Fetch real data from your database
-    const designs = []; // This should be replaced with a fetch call to your database
+    useEffect(() => {
+        fetchDesigns();
+    }, []);
+
+    const fetchDesigns = async () => {
+        let { data, error } = await supabase.from('designs').select('*');
+        if (error) console.error("Error fetching designs:", error);
+        else setDesigns(data);
+    };
 
     return (
         <div className="container mx-auto p-4">
