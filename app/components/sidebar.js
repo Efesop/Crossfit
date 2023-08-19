@@ -46,7 +46,7 @@ export default function Sidebar() {
                     <li>
                         <a href="/api/auth/login" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
                             <span className="material-icons">add_box</span>
-                            <span>Submit a Design</span>
+                            <span>Submit a Design (Login Required)</span>
                         </a>
                     </li>
                 )}
