@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { useRouter } from 'next/router';
 
@@ -7,10 +7,12 @@ export default function SubmitDesign() {
     const { user } = useUser();
     const router = useRouter();
 
-    // Redirect to login if user is not logged in
-    if (!user) {
-        router.push('/api/auth/login');
-    }
+    useEffect(() => {
+        // Redirect to login if user is not logged in
+        if (!user) {
+            router.push('/api/auth/login');
+        }
+    }, [user]);
 
     const handleSubmit = async (event) => {
       event.preventDefault();
