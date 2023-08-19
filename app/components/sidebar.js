@@ -6,17 +6,25 @@ export default function Sidebar() {
     return (
         <aside className="w-1/4 float-left pr-4 bg-gray-200 h-screen">
             {user && (
-                <div className="flex justify-end items-center p-4">
-                    <img src={user?.picture} alt={user?.name} className="w-10 h-10 rounded-full mr-2" />
-                    <span>{user?.name}</span>
+                <div className="flex flex-col items-center p-4">
+                    <img src={user?.picture} alt={user?.name} className="w-16 h-16 rounded-full mb-2" />
+                    <span className="font-bold">{user?.name}</span>
+                    <span className="text-sm text-gray-600">@{user?.nickname}</span>
                 </div>
             )}
             <ul className="space-y-4 p-4">
-                <li><a href="/" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Feed</a></li>
-                {user && <li><a href="/profile" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Profile</a></li>}
-                {user && <li><a href="/settings" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Settings</a></li>}
-                <li><a href="/tags" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Tags</a></li>
-                {user && <li><a href="/submit" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Submit Design</a></li>}
+                <li><a href="/" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
+                    <span className="material-icons">home</span>
+                    <span>Feed</span>
+                </a></li>
+                {user && <li><a href="/submit" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
+                    <span className="material-icons">add_box</span>
+                    <span>Submit a Design</span>
+                </a></li>}
+                {user && <li><a href="/settings" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
+                    <span className="material-icons">settings</span>
+                    <span>Settings</span>
+                </a></li>}
             </ul>
         </aside>
     );
