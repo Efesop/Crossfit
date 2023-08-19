@@ -25,6 +25,7 @@ export default function Sidebar() {
                     <span className="material-icons">settings</span>
                     <span>Settings</span>
                 </a></li>}
+                {user && <li><LogoutButton /></li>}
             </ul>
         </aside>
     );
