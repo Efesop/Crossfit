@@ -9,6 +9,8 @@ export default initAuth0({
   postLogoutRedirectUri: process.env.POST_LOGOUT_REDIRECT_URI,
   session: {
     cookieSecret: process.env.SESSION_COOKIE_SECRET,
+    cookieDomain: 'https://crossfit-efesop.vercel.app',
+    cookieSecure: true,
     cookieLifetime: 60 * 60 * 8,
     storeIdToken: true,
     storeAccessToken: true,
