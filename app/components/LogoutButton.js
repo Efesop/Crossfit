@@ -1,5 +1,7 @@
 // components/LogoutButton.js
-import { useUser } from '@auth0/nextjs-auth0';
+// import { useUser } from '@auth0/nextjs-auth0';
+import { useUser } from '@auth0/nextjs-auth0/client';
+
 
 export default function LogoutButton() {
   const { user, logout } = useUser();
