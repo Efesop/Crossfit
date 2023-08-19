@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
 import DesignCard from '../app/components/DesignCard';
-import Sidebar from '../app/components/sidebar';
 
 export default function Feed() {
     const [designs, setDesigns] = useState([]);
@@ -18,8 +17,7 @@ export default function Feed() {
 
     return (
         <div className="container mx-auto p-4">
-            <Sidebar />
-            <main className="w-3/4 float-right">
+            <main className="w-full">
                 <div className="mb-4">
                     <input type="text" placeholder="Search designs..." className="w-full p-2 border rounded" />
                 </div>
