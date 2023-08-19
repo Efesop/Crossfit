@@ -6,6 +6,7 @@ module.exports = {
       AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
       AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
       OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+      SESSION_COOKIE_SECRET: process.env.SESSION_COOKIE_SECRET,
     },
     webpack: (config, { isServer }) => {
       // Fixes npm packages that depend on `fs` module
