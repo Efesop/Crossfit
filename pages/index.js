@@ -23,8 +23,11 @@ export default function Feed() {
                 <div className="mb-4">
                     <input type="text" placeholder="Search designs..." className="w-full p-2 border rounded" />
                 </div>
-                <div className="mb-4">
-                    {/* Add your tags here */}
+                <div className="mb-4 flex space-x-2">
+                    {/* Sample tags, you can fetch these dynamically */}
+                    <span className="text-sm text-gray-500 bg-gray-200 px-2 py-1 rounded-full">UI</span>
+                    <span className="text-sm text-gray-500 bg-gray-200 px-2 py-1 rounded-full">UX</span>
+                    <span className="text-sm text-gray-500 bg-gray-200 px-2 py-1 rounded-full">Web</span>
                 </div>
                 <div>
                     {designs.map(design => (
