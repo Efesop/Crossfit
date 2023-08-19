@@ -1,4 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
+import LogoutButton from './LogoutButton';
+
 
 export default function Sidebar() {
     const { user } = useUser();
