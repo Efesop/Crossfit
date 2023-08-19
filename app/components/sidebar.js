@@ -1,4 +1,4 @@
-import { useUser } from '@auth0/nextjs-auth0/client/use-user';
+import { useUser } from '@auth0/nextjs-auth0';
 
 export default function Sidebar() {
     const { user } = useUser();
