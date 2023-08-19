@@ -1,4 +1,4 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useUser } from '@auth0/nextjs-auth0';
 
 export default function Sidebar() {
     const { user } = useUser();
@@ -14,15 +14,12 @@ export default function Sidebar() {
             )}
             <ul className="space-y-4 p-4">
                 <li><a href="/" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                    <span className="material-icons">home</span>
                     <span>Feed</span>
                 </a></li>
                 {user && <li><a href="/submit" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                    <span className="material-icons">add_box</span>
                     <span>Submit a Design</span>
                 </a></li>}
                 {user && <li><a href="/settings" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                    <span className="material-icons">settings</span>
                     <span>Settings</span>
                 </a></li>}
             </ul>
