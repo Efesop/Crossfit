@@ -11,5 +11,4 @@ export default function MyApp({ Component, pageProps }) {
         </RootLayout>
       </UserProvider>
     );
-  }
-  
+}
