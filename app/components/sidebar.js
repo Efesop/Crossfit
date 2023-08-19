@@ -12,7 +12,6 @@ export default function Sidebar() {
                 </div>
             )}
             <ul className="space-y-4 p-4">
-                <li><a href="/feed" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Feed</a></li>
                 {user && <li><a href="/profile" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Profile</a></li>}
                 {user && <li><a href="/settings" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Settings</a></li>}
                 {user && <li><a href="/submit" className="block p-2 hover:bg-blue-500 hover:text-white rounded">Submit Design</a></li>}
