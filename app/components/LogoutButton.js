@@ -1,4 +1,5 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
+import auth0 from 'auth0-js'; // Import auth0-js
 
 export default function LogoutButton() {
     const { user, getIdTokenClaims } = useUser();
