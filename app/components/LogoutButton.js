@@ -6,8 +6,8 @@ export default function LogoutButton() {
     if (!user) return null;
 
     const handleLogout = () => {
-        window.location.href = "https:dev-to536ufgipngcm31.auth0.com/v2/logout?returnTo=https%3A%2F%2Fcrossfit-efesop.vercel.app%2F";
-    };
+        window.location.href = "https://dev-to536ufgipngcm31.auth0.com/v2/logout?returnTo=https%3A%2F%2Fcrossfit-efesop.vercel.app%2F";
+    };    
 
     return (
         <button onClick={handleLogout}>
