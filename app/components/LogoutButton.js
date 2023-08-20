@@ -4,21 +4,15 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 
 
 export default function LogoutButton() {
-  const { user, logout } = useUser();
+    const { user, logout = () => console.error("Logout function is not defined") } = useUser();
 
   if (!user) return null;
 
   return (
-    <button onClick={() => {
-        if (logout) {
-            logout({ returnTo: window.location.origin });
-        } else {
-            console.error("Logout function is not defined");
-        }
-    }}
-    >
-      Logout
-    </button>
+    <button onClick={() => logout({ returnTo: window.location.origin })}>
+  Logout
+</button>
+
   );
 }
 
