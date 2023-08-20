@@ -19,6 +19,7 @@ export default initAuth0({
     // Add the following lines:
     cookie: {
       secure: process.env.NODE_ENV === 'production',
+      secure: true,
       sameSite: 'none',
     },
   },
