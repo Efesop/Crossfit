@@ -1,18 +1,17 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 
-export default function LogoutButton() {
-    const { user } = useUser();
-    const { logout } = useAuth0();
+export default function LogoutButton({ logoutDestination }) {
+  const { user, logout } = useUser();
 
-    if (!user) return null;
+  if (!user) return null;
 
-    const handleLogout = () => {
-        logout({ returnTo: 'https://crossfit-efesop.vercel.app/api/auth/logout' });
-    };
+  const handleLogout = () => {
+    logout({ returnTo: logoutDestination });
+  };
 
-    return (
-        <button onClick={handleLogout}>
-            Logout
-        </button>
-    );
+  return (
+    <button onClick={handleLogout}>
+      Logout
+    </button>
+  );
 }

@@ -40,7 +40,8 @@ export default function Sidebar() {
                                 <span>Settings</span>
                             </a>
                         </li>
-                        <li><LogoutButton /></li>
+                        <li><LogoutButton logoutDestination="https://crossfit-efesop.vercel.app/api/auth/logout" />
+</li>
                     </>
                 ) : (
                     <li>
