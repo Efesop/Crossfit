@@ -2,8 +2,6 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import LogoutButton from './components/LogoutButton';
-import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { useRouter } from 'next/router';
 import {
   Bars3Icon,
