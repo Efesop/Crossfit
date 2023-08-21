@@ -8,7 +8,7 @@ export default function LogoutButton() {
     if (!user) return null;
 
     const handleLogout = () => {
-        logout({ returnTo: 'https://crossfit-efesop.vercel.app/' });
+        logout({ returnTo: 'https://crossfit-efesop.vercel.app/api/auth/logout' });
     };
 
     return (
