@@ -1,4 +1,5 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 export default function LogoutButton({ logoutDestination = '/api/auth/logout' }) {
   const { user } = useUser();
@@ -16,8 +17,9 @@ export default function LogoutButton({ logoutDestination = '/api/auth/logout' })
   if (!user) return null;
 
   return (
-    <button onClick={handleLogout}>
-      Logout
-    </button>
+    <div onClick={handleLogout} className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded cursor-pointer">
+      <ExitToAppOutlinedIcon />
+      <span>Logout</span>
+    </div>
   );
 }
