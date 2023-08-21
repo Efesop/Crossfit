@@ -1,6 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
+import LogoutButton from './LogoutButton';
 import {
   Bars3Icon,
   BellIcon,
