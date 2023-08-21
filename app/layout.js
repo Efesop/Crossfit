@@ -16,7 +16,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 const navigation = [
 { name: 'Feed', href: '/', icon: HomeIcon, current: true },
 { name: 'Submit a Design', href: '/submit', icon: FolderIcon, current: false },
-{ name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: false },
+{ name: 'Settings', href: '/settings', icon: CogToothIcon, current: false },
 { name: 'Logout', href: '/api/auth/logout', icon: XMarkIcon, current: false },
 ];
 
