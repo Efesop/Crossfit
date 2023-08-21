@@ -15,7 +15,6 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import LogoutButton from './LogoutButton';
 
 const navigation = [
   { name: 'Feed', href: '/', icon: HomeIcon, current: true },
