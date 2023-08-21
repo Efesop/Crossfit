@@ -43,10 +43,13 @@ export default function Sidebar() {
                             </a>
                         </li>
                         <li>
-                            <LogoutButton className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded" logoutDestination="https://crossfit-efesop.vercel.app/api/auth/logout">
-                                <ExitToAppOutlinedIcon />
-                                <span>Logout</span>
-                            </LogoutButton>
+                        <LogoutButton logoutDestination="https://crossfit-efesop.vercel.app/api/auth/logout">
+    <div className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
+        <ExitToAppOutlinedIcon />
+        <span>Logout</span>
+    </div>
+</LogoutButton>
+
                         </li>
                     </ul>
                 </>
