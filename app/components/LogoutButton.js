@@ -6,7 +6,11 @@ export default function LogoutButton({ logoutDestination }) {
   if (!user) return null;
 
   const handleLogout = () => {
-    logout({ returnTo: logoutDestination });
+    try {
+      logout({ returnTo: logoutDestination });
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   };
 
   return (

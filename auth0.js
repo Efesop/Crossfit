@@ -16,6 +16,10 @@ export default initAuth0({
     storeAccessToken: true,
     storeRefreshToken: true,
     persistSession: true,
+    oidcClient: {
+        httpTimeout: 2500,
+        clockTolerance: 10000
+      },
     // Add the following lines:
     cookie: {
       secure: process.env.NODE_ENV === 'production',

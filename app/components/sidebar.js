@@ -4,6 +4,10 @@ import LogoutButton from './LogoutButton';
 export default function Sidebar() {
     const { user } = useUser();
 
+    if (!user) {
+        console.error("User not found in Sidebar component.");
+    }
+
     return (
         <aside className="w-1/4 float-left pr-4 bg-gray-200 h-screen">
             {user ? (

@@ -5,6 +5,10 @@ export default function Profile() {
 
     if (isLoading) return <div>Loading...</div>;
 
+    if (!authUser) {
+        console.error("User not found in Profile component.");
+    }
+
     return (
         <div className="border rounded-lg p-4">
             <img src={authUser?.picture} alt={authUser?.name} className="w-24 h-24 rounded-full mx-auto mb-4" />
