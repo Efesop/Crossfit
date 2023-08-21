@@ -1,9 +1,9 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import LogoutButton from './LogoutButton';
-import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
-import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
-import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 
 export default function Sidebar() {
     const { user } = useUser();
