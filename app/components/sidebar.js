@@ -1,6 +1,9 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import LogoutButton from './LogoutButton';
-import { HomeIcon, PlusIcon, CogIcon, LogoutIcon } from '@heroicons/react/outline'; // Importing the outline versions
+import HomeOutlinedIcon from '@material-ui/icons/HomeOutlined';
+import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
+import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
 
 export default function Sidebar() {
     const { user } = useUser();
@@ -23,19 +26,19 @@ export default function Sidebar() {
                     <ul className="space-y-4 p-4">
                         <li>
                             <a href="/" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <HomeIcon className="h-6 w-6" />
+                                <HomeOutlinedIcon />
                                 <span>Feed</span>
                             </a>
                         </li>
                         <li>
                             <a href="/submit" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <PlusIcon className="h-6 w-6" />
+                                <AddCircleOutlineOutlinedIcon />
                                 <span>Submit a Design</span>
                             </a>
                         </li>
                         <li>
                             <a href="/settings" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <CogIcon className="h-6 w-6" />
+                                <SettingsOutlinedIcon />
                                 <span>Settings</span>
                             </a>
                         </li>
@@ -48,14 +51,14 @@ export default function Sidebar() {
                 <>
                     <div className="p-4">
                         <a href="/api/auth/login" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                            <LogoutIcon className="h-6 w-6" /> {/* Using LogoutIcon for the login button as a placeholder. You might want to choose a different icon. */}
+                            <ExitToAppOutlinedIcon />
                             <span>Sign in</span>
                         </a>
                     </div>
                     <ul className="space-y-4 p-4">
                         <li>
                             <a href="/api/auth/login" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <PlusIcon className="h-6 w-6" />
+                                <AddCircleOutlineOutlinedIcon />
                                 <span>Submit a Design (Login Required)</span>
                             </a>
                         </li>
