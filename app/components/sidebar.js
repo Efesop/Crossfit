@@ -1,6 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import LogoutButton from './LogoutButton';
-import { HomeIcon, PlusIcon, CogIcon, LoginIcon } from '@heroicons/react/outline';
+import { HomeIcon, PlusIcon, CogIcon, LogoutIcon } from '@heroicons/react/outline'; // Importing the outline versions
 
 export default function Sidebar() {
     const { user } = useUser();
@@ -48,7 +48,7 @@ export default function Sidebar() {
                 <>
                     <div className="p-4">
                         <a href="/api/auth/login" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                            <LoginIcon className="h-6 w-6" />
+                            <LogoutIcon className="h-6 w-6" /> {/* Using LogoutIcon for the login button as a placeholder. You might want to choose a different icon. */}
                             <span>Sign in</span>
                         </a>
                     </div>
