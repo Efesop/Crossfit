@@ -25,6 +25,8 @@ export default function Layout({ children }) {
   const router = useRouter(); 
   const { user } = useUser();
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   const navigation = [
     { name: 'Feed', href: '/', icon: HomeIcon, current: router.pathname === '/' },
     { name: 'Submit a Design', href: '/submit', icon: FolderIcon, current: router.pathname === '/submit' },
