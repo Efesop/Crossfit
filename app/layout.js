@@ -2,6 +2,7 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { Fragment, useState } from 'react';
 import { Dialog, Menu, Transition } from '@headlessui/react';
 import LogoutButton from './components/LogoutButton';
+import { useRouter } from 'next/router';
 import {
   Bars3Icon,
   BellIcon,
@@ -17,9 +18,9 @@ import {
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
 const navigation = [
-  { name: 'Feed', href: '/', icon: HomeIcon, current: true },
-  { name: 'Submit a Design', href: '/submit', icon: FolderIcon, current: false },
-  { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: false },
+  { name: 'Feed', href: '/', icon: HomeIcon, current: router.pathname === '/' },
+  { name: 'Submit a Design', href: '/submit', icon: FolderIcon, current: router.pathname === '/submit' },
+  { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: router.pathname === '/settings' },
 ];
 
 function classNames(...classes) {
@@ -27,7 +28,7 @@ function classNames(...classes) {
 }
 
 export default function Layout({ children }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
   const { user } = useUser();
 
   return (
