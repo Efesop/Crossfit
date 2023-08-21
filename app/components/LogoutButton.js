@@ -1,9 +1,7 @@
-import { useUser } from '@auth0/nextjs-auth0/client';
+import { useAuth0 } from '@auth0/nextjs-auth0/client';
 
 export default function LogoutButton({ logoutDestination }) {
-  const { user, logout } = useUser();
-
-  if (!user) return null;
+  const { logout } = useAuth0();
 
   const handleLogout = () => {
     try {
