@@ -17,19 +17,19 @@ import {
 } from '@heroicons/react/24/outline';
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 
-const router = useRouter();
-const navigation = [
-  { name: 'Feed', href: '/', icon: HomeIcon, current: router.pathname === '/' },
-  { name: 'Submit a Design', href: '/submit', icon: FolderIcon, current: router.pathname === '/submit' },
-  { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: router.pathname === '/settings' },
-];
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function Layout({ children }) {
+  const router = useRouter(); 
   const { user } = useUser();
+
+  const navigation = [
+    { name: 'Feed', href: '/', icon: HomeIcon, current: router.pathname === '/' },
+    { name: 'Submit a Design', href: '/submit', icon: FolderIcon, current: router.pathname === '/submit' },
+    { name: 'Settings', href: '/settings', icon: Cog6ToothIcon, current: router.pathname === '/settings' },
+  ];
 
   return (
     <>
