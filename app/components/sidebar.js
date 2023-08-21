@@ -1,5 +1,6 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import LogoutButton from './LogoutButton';
+import { HomeIcon, PlusIcon, CogIcon, LoginIcon } from '@heroicons/react/outline';
 
 export default function Sidebar() {
     const { user } = useUser();
@@ -22,19 +23,19 @@ export default function Sidebar() {
                     <ul className="space-y-4 p-4">
                         <li>
                             <a href="/" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <span className="material-icons">home</span>
+                                <HomeIcon className="h-6 w-6" />
                                 <span>Feed</span>
                             </a>
                         </li>
                         <li>
                             <a href="/submit" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <span className="material-icons">add_box</span>
+                                <PlusIcon className="h-6 w-6" />
                                 <span>Submit a Design</span>
                             </a>
                         </li>
                         <li>
                             <a href="/settings" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <span className="material-icons">settings</span>
+                                <CogIcon className="h-6 w-6" />
                                 <span>Settings</span>
                             </a>
                         </li>
@@ -47,14 +48,14 @@ export default function Sidebar() {
                 <>
                     <div className="p-4">
                         <a href="/api/auth/login" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                            <span className="material-icons">login</span>
+                            <LoginIcon className="h-6 w-6" />
                             <span>Sign in</span>
                         </a>
                     </div>
                     <ul className="space-y-4 p-4">
                         <li>
                             <a href="/api/auth/login" className="flex items-center space-x-2 p-2 hover:bg-blue-500 hover:text-white rounded">
-                                <span className="material-icons">add_box</span>
+                                <PlusIcon className="h-6 w-6" />
                                 <span>Submit a Design (Login Required)</span>
                             </a>
                         </li>
