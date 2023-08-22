@@ -9,11 +9,17 @@ export default function Profile() {
 
     useEffect(() => {
         if (user) {
+            // Log the Auth0 user data
+            console.log("Auth0 user data:", user);
+    
             const fetchUserData = async () => {
                 const { data, error } = await supabase
                     .from('users')
                     .select('*')
                     .eq('auth0_id', user.sub);
+    
+                // Log the Supabase response data
+                console.log("Supabase response data:", data);
 
                 if (error) {
                     console.error("Error fetching user:", error);
@@ -24,7 +30,7 @@ export default function Profile() {
                     // User doesn't exist, create a new entry
                     const { error: insertError } = await supabase
                         .from('users')
-                        .insert([{ auth0_id: user.sub, name: user.name, avatar: user.picture }]);
+                        .insert([{ auth0_id: user.sub, name: user.name, photo: user.picture }]);
 
                     if (insertError) {
                         console.error("Error creating user:", insertError);
