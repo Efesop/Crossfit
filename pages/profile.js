@@ -1,6 +1,7 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { supabase } from '../lib/supabaseClient';
 import { useEffect } from 'react';
+import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Profile() {
     const { user, isLoading } = useUser();
@@ -37,10 +38,29 @@ export default function Profile() {
     if (isLoading) return <div>Loading...</div>;
 
     return (
-        <div className="border rounded-lg p-4">
-            <img src={user?.picture} alt={user?.name} className="w-24 h-24 rounded-full mx-auto mb-4" />
-            <h2 className="text-2xl font-semibold mb-2 text-center">{user?.name}</h2>
-            {/* Add more user details as needed */}
-        </div>
+        <form>
+            <div className="space-y-12">
+                <div className="border-b border-gray-900/10 pb-12">
+                    <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
+                    <p className="mt-1 text-sm leading-6 text-gray-600">
+                        This information will be displayed publicly so be careful what you share.
+                    </p>
+                    {/* ... [Rest of your provided profile layout code] */}
+                </div>
+                {/* ... [Rest of the sections from your provided profile layout code] */}
+            </div>
+
+            <div className="mt-6 flex items-center justify-end gap-x-6">
+                <button type="button" className="text-sm font-semibold leading-6 text-gray-900">
+                    Cancel
+                </button>
+                <button
+                    type="submit"
+                    className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                    Save
+                </button>
+            </div>
+        </form>
     );
 }
