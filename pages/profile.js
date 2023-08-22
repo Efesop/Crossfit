@@ -62,7 +62,11 @@ export default function Profile() {
         // Optionally, show a success message to the user
         console.log("Profile updated successfully:", data);
     };
-    
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setProfileData(prevData => ({ ...prevData, [name]: value }));
+    };
 
     if (isLoading) return <div>Loading...</div>;
 
@@ -83,13 +87,15 @@ export default function Profile() {
                                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                                     <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">workcation.com/</span>
                                     <input
-                                        type="text"
-                                        name="username"
-                                        id="username"
-                                        autoComplete="username"
-                                        className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                                        placeholder="janesmith"
-                                    />
+    type="text"
+    name="username"
+    id="username"
+    autoComplete="username"
+    value={profileData.username || ''}
+    onChange={handleInputChange}
+    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+    placeholder="janesmith"
+/>
                                 </div>
                             </div>
                         </div>
@@ -99,13 +105,15 @@ export default function Profile() {
                                 About
                             </label>
                             <div className="mt-2">
-                                <textarea
-                                    id="about"
-                                    name="about"
-                                    rows={3}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    defaultValue={''}
-                                />
+                            <textarea
+    id="about"
+    name="about"
+    rows={3}
+    value={profileData.about || ''}
+    onChange={handleInputChange}
+    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+/>
+
                             </div>
                             <p className="mt-3 text-sm leading-6 text-gray-600">Write a few sentences about yourself.</p>
                         </div>
@@ -159,13 +167,16 @@ export default function Profile() {
                                 First name
                             </label>
                             <div className="mt-2">
-                                <input
-                                    type="text"
-                                    name="first-name"
-                                    id="first-name"
-                                    autoComplete="given-name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
+                            <input
+    type="text"
+    name="first-name"
+    id="first-name"
+    autoComplete="given-name"
+    value={profileData.firstName || ''}
+    onChange={handleInputChange}
+    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+/>
+
                             </div>
                         </div>
 
@@ -174,13 +185,16 @@ export default function Profile() {
                                 Last name
                             </label>
                             <div className="mt-2">
-                                <input
-                                    type="text"
-                                    name="last-name"
-                                    id="last-name"
-                                    autoComplete="family-name"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
+                            <input
+    type="text"
+    name="last-name"
+    id="last-name"
+    autoComplete="family-name"
+    value={profileData.lastName || ''}
+    onChange={handleInputChange}
+    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+/>
+
                             </div>
                         </div>
 
@@ -193,14 +207,12 @@ export default function Profile() {
                         id="email"
                         name="email"
                         type="email"
-                        autoComplete="email"
                         value={profileData.email || user.email}
-                        onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                        onChange={handleInputChange}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
             </div>
-
                         <div className="sm:col-span-3">
                             <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
                                 Country
