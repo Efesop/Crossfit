@@ -40,9 +40,29 @@ export default function Profile() {
 
     const handleProfileUpdate = async (event) => {
         event.preventDefault();
-        // Here, you can add the logic to update the user's profile in your Supabase table.
-        // You can use the setProfileData to update the local state after successful update.
+    
+        // Update the user's profile in the Supabase table
+        const { data, error } = await supabase
+            .from('users')
+            .update({
+                name: profileData.name,
+                username: profileData.username,
+                about: profileData.about,
+                photo: profileData.photo,
+                email: profileData.email
+            })
+            .eq('auth0_id', user.sub);
+    
+        if (error) {
+            console.error("Error updating profile:", error);
+            // Optionally, show an error message to the user
+            return;
+        }
+    
+        // Optionally, show a success message to the user
+        console.log("Profile updated successfully:", data);
     };
+    
 
     if (isLoading) return <div>Loading...</div>;
 
