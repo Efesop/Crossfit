@@ -1,14 +1,15 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
 import { supabase } from '../lib/supabaseClient';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 
 export default function Profile() {
     const { user, isLoading } = useUser();
+    const [profileData, setProfileData] = useState({});
 
     useEffect(() => {
         if (user) {
-            const checkAndCreateUser = async () => {
+            const fetchUserData = async () => {
                 const { data, error } = await supabase
                     .from('users')
                     .select('*')
@@ -28,17 +29,25 @@ export default function Profile() {
                     if (insertError) {
                         console.error("Error creating user:", insertError);
                     }
+                } else {
+                    setProfileData(data[0]);
                 }
             };
 
-            checkAndCreateUser();
+            fetchUserData();
         }
     }, [user]);
+
+    const handleProfileUpdate = async (event) => {
+        event.preventDefault();
+        // Here, you can add the logic to update the user's profile in your Supabase table.
+        // You can use the setProfileData to update the local state after successful update.
+    };
 
     if (isLoading) return <div>Loading...</div>;
 
     return (
-        <form>
+        <form onSubmit={handleProfileUpdate}>
             <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
                     <h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
@@ -156,19 +165,21 @@ export default function Profile() {
                         </div>
 
                         <div className="sm:col-span-4">
-                            <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                                Email address
-                            </label>
-                            <div className="mt-2">
-                                <input
-                                    id="email"
-                                    name="email"
-                                    type="email"
-                                    autoComplete="email"
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                />
-                            </div>
-                        </div>
+                <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
+                    Email address
+                </label>
+                <div className="mt-2">
+                    <input
+                        id="email"
+                        name="email"
+                        type="email"
+                        autoComplete="email"
+                        value={profileData.email || user.email}
+                        onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                </div>
+            </div>
 
                         <div className="sm:col-span-3">
                             <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
