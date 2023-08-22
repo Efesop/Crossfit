@@ -17,8 +17,8 @@ export default function LogoutButton({ logoutDestination = '/api/auth/logout' })
   if (!user) return null;
 
   return (
-    <div onClick={handleLogout} className="group flex items-center px-3 py-2 text-sm leading-6 font-medium text-gray-700 hover:text-indigo-600 hover:bg-gray-50 rounded-md cursor-pointer">
-      <ExitToAppOutlinedIcon className="h-6 w-6 text-gray-400 group-hover:text-indigo-600" aria-hidden="true" />
+    <div onClick={handleLogout} className="group flex items-center px-3 py-2 text-sm leading-6 font-medium text-gray-400 hover:text-white hover:bg-gray-800 rounded-md cursor-pointer">
+      <ExitToAppOutlinedIcon className="h-6 w-6 text-gray-400 group-hover:text-white" aria-hidden="true" />
       <span className="ml-3">Logout</span>
     </div>
   );
