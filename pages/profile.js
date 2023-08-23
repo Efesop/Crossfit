@@ -14,28 +14,29 @@ export default function Profile() {
             console.log("Auth0 user data:", user);
     
             const fetchUserData = async () => {
-                // Get the session and access token
-                const session = await getSession();
-                const token = session?.accessToken;
+                // Fetch the Auth0 token from the server-side API route
+                const response = await fetch("/api/auth/getAuthToken");
+                const data = await response.json();
+                const token = data.accessToken;
     
                 if (token) {
                     // If you need to exchange the token for a Supabase JWT, do it here.
                     // Otherwise, use the token directly.
     
-                    const { data, error } = await supabase
+                    const { data: userData, error } = await supabase
                         .from('users')
                         .select('*')
                         .eq('auth0_id', user.sub)
                         .headers({ Authorization: `Bearer ${token}` }); // Use the token in requests to Supabase
     
-                    console.log("Supabase response data:", data);
+                    console.log("Supabase response data:", userData);
     
                     if (error) {
                         console.error("Error fetching user:", error);
                         return;
                     }
     
-                    if (data.length === 0) {
+                    if (userData.length === 0) {
                         // User doesn't exist, create a new entry
                         const { error: insertError } = await supabase
                             .from('users')
@@ -45,7 +46,7 @@ export default function Profile() {
                             console.error("Error creating user:", insertError);
                         }
                     } else {
-                        setProfileData(data[0]);
+                        setProfileData(userData[0]);
                     }
                 }
             };
@@ -53,6 +54,7 @@ export default function Profile() {
             fetchUserData();
         }
     }, [user]);
+    
     
 
     const handleProfileUpdate = async (event) => {
