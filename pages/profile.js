@@ -18,8 +18,7 @@ export default function Profile() {
         const { data: userData, error } = await supabase
             .from('users')
             .select('*')
-            .eq('auth0_id', user.sub)
-            .headers({ Authorization: `Bearer ${token}` });
+            .eq('auth0_id', user.sub);
 
         if (error) {
             console.error("Error fetching user:", error);
@@ -71,8 +70,7 @@ export default function Profile() {
                 photo: profileData.photo,
                 email: profileData.email
             })
-            .eq('auth0_id', user.sub)
-            .httpAction('POST', { headers: { Authorization: `Bearer ${token}` } });
+            .eq('auth0_id', user.sub);
 
         if (error) {
             console.error("Error updating profile:", error);
