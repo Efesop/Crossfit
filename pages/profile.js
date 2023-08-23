@@ -3,6 +3,7 @@ import { supabase } from '../lib/supabaseClient';
 import { useEffect, useState } from 'react';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
 import { getSession } from '@auth0/nextjs-auth0';
+import { getSupabase } from '../lib/supabaseClient';
 
 export default function Profile() {
     const { user, isLoading } = useUser();
@@ -18,6 +19,7 @@ export default function Profile() {
                 const response = await fetch("/api/auth/getSession");
                 const data = await response.json();
                 const token = data.accessToken;
+                const supabase = getSupabase(token);
     
                 if (token) {
                     // If you need to exchange the token for a Supabase JWT, do it here.
