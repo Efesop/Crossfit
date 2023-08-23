@@ -1,42 +1,74 @@
-import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { getSupabase } from '../utils/supabaseClient'; // Updated path
-import styles from '../styles/globals.css'; // Updated path
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { supabase } from '../lib/supabaseClient';
+import DesignCard from '../app/components/DesignCard';
 import { Tab } from '@headlessui/react';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export default function Index({ user }) {
-  const [todos, setTodos] = useState([]);
-  const [designs, setDesigns] = useState([]);
-  const supabase = getSupabase(user.accessToken);
+export default function Feed() {
+    const [designs, setDesigns] = useState([]);
+    const [categories, setCategories] = useState({});
 
-  useEffect(() => {
-    const fetchTodos = async () => {
-      const { data } = await supabase.from('todo').select('*');
-      setTodos(data);
+    useEffect(() => {
+        fetchDesigns();
+    }, []);
+
+    const fetchDesigns = async () => {
+        let { data, error } = await supabase.from('designs').select('*');
+        if (error) console.error("Error fetching designs:", error);
+        else setDesigns(data);
     };
 
-    fetchTodos();
-    // Add your logic to fetch designs here
-  }, []);
+    // Sample tags, you can fetch these dynamically and structure them accordingly
+    const tags = {
+      UI: designs.filter(design => design.tags.includes('UI')),
+      UX: designs.filter(design => design.tags.includes('UX')),
+      Web: designs.filter(design => design.tags.includes('Web'))
+    };
 
-  return (
-    <div className={styles.container}>
-      <p>
-        Welcome {user.name}!{' '}
-        <a href="/api/auth/logout">Logout</a>
-      </p>
-      {todos?.length > 0 ? (
-        todos.map((todo) => <p key={todo.id}>{todo.title}</p>)
-      ) : (
-        <p>You have completed all todos!</p>
-      )}
-      {/* Add your designs display logic here */}
-    </div>
-  );
-};
-
-export const getServerSideProps = withPageAuthRequired();
+    return (
+        <div className="container mx-auto p-4">
+            <main className="w-full">
+                <Tab.Group>
+                    <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+                        {Object.keys(tags).map((tag) => (
+                            <Tab
+                                key={tag}
+                                className={({ selected }) =>
+                                    classNames(
+                                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
+                                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                                        selected
+                                            ? 'bg-white shadow'
+                                            : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                                    )
+                                }
+                            >
+                                {tag}
+                            </Tab>
+                        ))}
+                    </Tab.List>
+                    <Tab.Panels className="mt-2">
+                        {Object.values(tags).map((designsForTag, idx) => (
+                            <Tab.Panel
+                                key={idx}
+                                className={classNames(
+                                    'rounded-xl bg-white p-3',
+                                    'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                                )}
+                            >
+                                <div>
+                                    {designsForTag.map(design => (
+                                        <DesignCard key={design.id} design={design} />
+                                    ))}
+                                </div>
+                            </Tab.Panel>
+                        ))}
+                    </Tab.Panels>
+                </Tab.Group>
+            </main>
+        </div>
+    );
+}
