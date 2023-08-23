@@ -76,16 +76,17 @@ export default function Profile() {
     
         // Update the user's profile in the Supabase table
         const { data: updateData, error } = await supabase
-            .from('users')
-            .update({
-                name: profileData.name,
-                username: profileData.username,
-                about: profileData.about,
-                photo: profileData.photo,
-                email: profileData.email
-            })
-            .eq('auth0_id', user.sub)
-            .headers({ Authorization: `Bearer ${token}` });  // Use the token to authenticate the request
+    .from('users')
+    .update({
+        name: profileData.name,
+        username: profileData.username,
+        about: profileData.about,
+        photo: profileData.photo,
+        email: profileData.email
+    })
+    .eq('auth0_id', user.sub)
+    .httpAction('POST', { headers: { Authorization: `Bearer ${token}` } });  // Use the token to authenticate the request
+
     
         if (error) {
             console.error("Error updating profile:", error);
