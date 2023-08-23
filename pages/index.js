@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import { getSupabase } from '../utils/supabase';
-import styles from '../styles/Home.module.css';
+import { getSupabase } from '../utils/supabaseClient'; // Updated path
+import styles from '../styles/globals.css'; // Updated path
 import { useState, useEffect } from 'react';
 import { Tab } from '@headlessui/react';
 
