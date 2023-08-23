@@ -1,109 +1,92 @@
 import { useUser } from '@auth0/nextjs-auth0/client';
-import { supabase } from '../lib/supabaseClient';
 import { useEffect, useState } from 'react';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
-import { getSession } from '@auth0/nextjs-auth0';
 import { getSupabase } from '../lib/supabaseClient';
 
 export default function Profile() {
     const { user, isLoading } = useUser();
     const [profileData, setProfileData] = useState({});
-    const [supabaseJwt, setSupabaseJwt] = useState(null);
+    
+    const fetchToken = async () => {
+        const response = await fetch("/api/auth/getSession");
+        const data = await response.json();
+        return data.accessToken;
+    };
+
+    const fetchUserData = async (token) => {
+        const supabase = getSupabase(token);
+        const { data: userData, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('auth0_id', user.sub)
+            .headers({ Authorization: `Bearer ${token}` });
+
+        if (error) {
+            console.error("Error fetching user:", error);
+            // TODO: Notify the user about the error
+            return;
+        }
+
+        if (userData.length === 0) {
+            const { error: insertError } = await supabase
+                .from('users')
+                .insert([{ auth0_id: user.sub, name: user.name, photo: user.picture }]);
+
+            if (insertError) {
+                console.error("Error creating user:", insertError);
+                // TODO: Notify the user or retry the insertion
+            }
+        } else {
+            setProfileData(userData[0]);
+        }
+    };
 
     useEffect(() => {
         if (user) {
-            console.log("Auth0 user data:", user);
-    
-            const fetchUserData = async () => {
-                // Fetch the Auth0 token from the server-side API route
-                const response = await fetch("/api/auth/getSession");
-                const data = await response.json();
-                const token = data.accessToken;
-                const supabase = getSupabase(token);
-    
+            (async () => {
+                const token = await fetchToken();
                 if (token) {
-                    // If you need to exchange the token for a Supabase JWT, do it here.
-                    // Otherwise, use the token directly.
-    
-                    const { data: userData, error } = await supabase
-                        .from('users')
-                        .select('*')
-                        .eq('auth0_id', user.sub)
-                        .headers({ Authorization: `Bearer ${token}` }); // Use the token in requests to Supabase
-    
-                    console.log("Supabase response data:", userData);
-    
-                    if (error) {
-                        console.error("Error fetching user:", error);
-                        return;
-                    }
-    
-                    if (userData.length === 0) {
-                        // User doesn't exist, create a new entry
-                        const { error: insertError } = await supabase
-                            .from('users')
-                            .insert([{ auth0_id: user.sub, name: user.name, photo: user.picture }]);
-    
-                        if (insertError) {
-                            console.error("Error creating user:", insertError);
-                        }
-                    } else {
-                        setProfileData(userData[0]);
-                    }
+                    await fetchUserData(token);
                 }
-            };
-    
-            fetchUserData();
+            })();
         }
     }, [user]);
-    
-    
 
     const handleProfileUpdate = async (event) => {
         event.preventDefault();
-    
-        // Retrieve the session and access token
-        const response = await fetch("/api/auth/getSession");
-        if (!response.ok) {
-            console.error("Error fetching session:", response.statusText);
-            return;
-        }
-        const sessionData = await response.json();
-        const token = sessionData.accessToken;
-    
+        const token = await fetchToken();
+
         if (!token) {
             console.error("No access token found");
             return;
         }
-    
-        // Update the user's profile in the Supabase table
-        const { data: updateData, error } = await supabase
-    .from('users')
-    .update({
-        name: profileData.name,
-        username: profileData.username,
-        about: profileData.about,
-        photo: profileData.photo,
-        email: profileData.email
-    })
-    .eq('auth0_id', user.sub)
-    .httpAction('POST', { headers: { Authorization: `Bearer ${token}` } });  // Use the token to authenticate the request
 
-    
+        const supabase = getSupabase(token);
+        const { data: updateData, error } = await supabase
+            .from('users')
+            .update({
+                name: profileData.name,
+                username: profileData.username,
+                about: profileData.about,
+                photo: profileData.photo,
+                email: profileData.email
+            })
+            .eq('auth0_id', user.sub)
+            .httpAction('POST', { headers: { Authorization: `Bearer ${token}` } });
+
         if (error) {
             console.error("Error updating profile:", error);
-            // Optionally, show an error message to the user
+            // TODO: Show an error message to the user
             return;
         }
-    
-        // Optionally, show a success message to the user
+
         console.log("Profile updated successfully:", updateData);
+        // TODO: Show a success message to the user
     };
-    
-    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+        // TODO: Validate and sanitize the input
         setProfileData(prevData => ({ ...prevData, [name]: value }));
     };
 
