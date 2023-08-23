@@ -2,50 +2,70 @@ import { useUser } from '@auth0/nextjs-auth0/client';
 import { supabase } from '../lib/supabaseClient';
 import { useEffect, useState } from 'react';
 import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { getSession } from '@auth0/nextjs-auth0';
 
 export default function Profile() {
     const { user, isLoading } = useUser();
     const [profileData, setProfileData] = useState({});
+    const [supabaseJwt, setSupabaseJwt] = useState(null);
 
     useEffect(() => {
         if (user) {
-            // Log the Auth0 user data
             console.log("Auth0 user data:", user);
     
             const fetchUserData = async () => {
-                const { data, error } = await supabase
-                    .from('users')
-                    .select('*')
-                    .eq('auth0_id', user.sub);
+                // Get the session and access token
+                const session = await getSession();
+                const token = session?.accessToken;
     
-                // Log the Supabase response data
-                console.log("Supabase response data:", data);
-
-                if (error) {
-                    console.error("Error fetching user:", error);
-                    return;
-                }
-
-                if (data.length === 0) {
-                    // User doesn't exist, create a new entry
-                    const { error: insertError } = await supabase
+                if (token) {
+                    // If you need to exchange the token for a Supabase JWT, do it here.
+                    // Otherwise, use the token directly.
+    
+                    const { data, error } = await supabase
                         .from('users')
-                        .insert([{ auth0_id: user.sub, name: user.name, photo: user.picture }]);
-
-                    if (insertError) {
-                        console.error("Error creating user:", insertError);
+                        .select('*')
+                        .eq('auth0_id', user.sub)
+                        .headers({ Authorization: `Bearer ${token}` }); // Use the token in requests to Supabase
+    
+                    console.log("Supabase response data:", data);
+    
+                    if (error) {
+                        console.error("Error fetching user:", error);
+                        return;
                     }
-                } else {
-                    setProfileData(data[0]);
+    
+                    if (data.length === 0) {
+                        // User doesn't exist, create a new entry
+                        const { error: insertError } = await supabase
+                            .from('users')
+                            .insert([{ auth0_id: user.sub, name: user.name, photo: user.picture }]);
+    
+                        if (insertError) {
+                            console.error("Error creating user:", insertError);
+                        }
+                    } else {
+                        setProfileData(data[0]);
+                    }
                 }
             };
-
+    
             fetchUserData();
         }
     }, [user]);
+    
 
     const handleProfileUpdate = async (event) => {
         event.preventDefault();
+    
+        // Retrieve the session and access token
+        const session = getSession(req, res);
+        const token = session?.accessToken;
+    
+        if (!token) {
+            console.error("No access token found");
+            return;
+        }
     
         // Update the user's profile in the Supabase table
         const { data, error } = await supabase
@@ -57,7 +77,8 @@ export default function Profile() {
                 photo: profileData.photo,
                 email: profileData.email
             })
-            .eq('auth0_id', user.sub);
+            .eq('auth0_id', user.sub)
+            .setAuth(token);  // Use the token to authenticate the request
     
         if (error) {
             console.error("Error updating profile:", error);
@@ -68,6 +89,7 @@ export default function Profile() {
         // Optionally, show a success message to the user
         console.log("Profile updated successfully:", data);
     };
+    
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
