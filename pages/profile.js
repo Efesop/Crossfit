@@ -15,7 +15,7 @@ export default function Profile() {
     
             const fetchUserData = async () => {
                 // Fetch the Auth0 token from the server-side API route
-                const response = await fetch("/api/auth/getAuthToken");
+                const response = await fetch("/api/auth/getSession");
                 const data = await response.json();
                 const token = data.accessToken;
     
