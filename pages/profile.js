@@ -61,8 +61,13 @@ export default function Profile() {
         event.preventDefault();
     
         // Retrieve the session and access token
-        const session = getSession(req, res);
-        const token = session?.accessToken;
+        const response = await fetch("/api/auth/getSession");
+        if (!response.ok) {
+            console.error("Error fetching session:", response.statusText);
+            return;
+        }
+        const sessionData = await response.json();
+        const token = sessionData.accessToken;
     
         if (!token) {
             console.error("No access token found");
@@ -70,7 +75,7 @@ export default function Profile() {
         }
     
         // Update the user's profile in the Supabase table
-        const { data, error } = await supabase
+        const { data: updateData, error } = await supabase
             .from('users')
             .update({
                 name: profileData.name,
@@ -80,7 +85,7 @@ export default function Profile() {
                 email: profileData.email
             })
             .eq('auth0_id', user.sub)
-            .setAuth(token);  // Use the token to authenticate the request
+            .headers({ Authorization: `Bearer ${token}` });  // Use the token to authenticate the request
     
         if (error) {
             console.error("Error updating profile:", error);
@@ -89,8 +94,9 @@ export default function Profile() {
         }
     
         // Optionally, show a success message to the user
-        console.log("Profile updated successfully:", data);
+        console.log("Profile updated successfully:", updateData);
     };
+    
     
 
     const handleInputChange = (e) => {
